@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   Headers,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { GetUsersDto } from './dto/get-users.dto';
 
 @Controller('user')
 export class UserController {
@@ -26,7 +28,7 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query() params: GetUsersDto) {
     return this.userService.findAll();
   }
 

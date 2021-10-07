@@ -8,10 +8,10 @@ Requirements
 
 -	[x] global prefix /api
 -	[x] health check endpoint
--	[ ] validation
+-	[x] validation
 	-	[x] body
 	-	[x] header
-	-	[ ] query params
+	-	[x] query params
 	-	[x] custom response format
 -	[ ] typeorm
 -	[ ] tests

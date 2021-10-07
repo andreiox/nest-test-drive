@@ -15,6 +15,7 @@ Requirements
 	-	[x] custom response format
 -	[ ] typeorm
 -	[ ] tests
+-	[ ] documentation
 
 References
 ----------

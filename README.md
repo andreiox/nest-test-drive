@@ -10,7 +10,7 @@ Requirements
 -	[x] health check endpoint
 -	[ ] validation
 	-	[x] body
-	-	[ ] header
+	-	[x] header
 	-	[ ] query params
 	-	[x] custom response format
 -	[ ] typeorm

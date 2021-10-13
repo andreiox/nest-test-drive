@@ -13,7 +13,7 @@ Requirements
 	-	[x] header
 	-	[x] query params
 	-	[x] custom response format
--	[ ] typeorm
+-	[x] typeorm
 -	[ ] tests
 -	[ ] documentation
 

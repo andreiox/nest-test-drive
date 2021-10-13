@@ -21,11 +21,14 @@ export class UserService {
     return this.repository.findOne(id);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return this.repository.save({
+      ...updateUserDto,
+      id,
+    });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }

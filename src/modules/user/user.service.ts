@@ -29,6 +29,6 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} user`;
+    return this.repository.delete(id);
   }
 }

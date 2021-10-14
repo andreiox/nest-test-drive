@@ -1,5 +1,6 @@
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import HttpError from 'src/system/errors/HttpError';
+
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import UserRepository from '../repositories/user.repository';
@@ -20,7 +21,7 @@ export class UserService {
 
   async findOne(id: string) {
     const user = await this.repository.findOne(id);
-    if (!user) throw new HttpError(404, 'User not found');
+    if (!user) throw new NotFoundException('User not found');
 
     return user;
   }
@@ -34,7 +35,7 @@ export class UserService {
 
   async remove(id: string) {
     const response = await this.repository.delete(id);
-    if (!response.affected) throw new HttpError(404, 'User not found');
+    if (!response.affected) throw new NotFoundException('User not found');
 
     return response;
   }

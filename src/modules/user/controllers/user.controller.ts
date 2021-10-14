@@ -23,6 +23,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { GetUsersDto } from '../dto/get-users.dto';
 import { UserDto } from '../dto/user.dto';
+import { BadRequestSchema } from 'src/system/constants/schemas';
 
 @Controller('user')
 @ApiTags('User')
@@ -32,32 +33,7 @@ import { UserDto } from '../dto/user.dto';
 })
 @ApiBadRequestResponse({
   description: 'Bad Request',
-  schema: {
-    required: ['code', 'message'],
-    properties: {
-      code: {
-        type: 'number',
-      },
-      message: {
-        type: 'string',
-      },
-      errors: {
-        type: 'array',
-        items: {
-          type: 'object',
-          required: ['msg', 'param'],
-          properties: {
-            msg: {
-              type: 'number',
-            },
-            param: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    },
-  },
+  schema: BadRequestSchema,
 })
 @ApiInternalServerErrorResponse({
   description: 'Sorry we are experiencing technical problems',

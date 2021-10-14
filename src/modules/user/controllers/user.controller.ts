@@ -19,10 +19,10 @@ import {
 } from '@nestjs/swagger';
 
 import { UserService } from '../services/user.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { GetUsersDto } from '../dto/get-users.dto';
-import { UserDto } from '../dto/user.dto';
+import { CreateUserDto } from '../dto/request/create-user.dto';
+import { UpdateUserDto } from '../dto/request/update-user.dto';
+import { GetUsersDto } from '../dto/request/get-users.dto';
+import { UserDto } from '../dto/response/user.dto';
 import { BadRequestSchema } from '../../../system/constants/schemas';
 
 @Controller('user')

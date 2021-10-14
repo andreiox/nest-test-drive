@@ -1,9 +1,10 @@
 import { Test } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { ValidationPipe } from '@nestjs/common';
+
 import { UserController } from './user.controller';
 import { UserService } from '../services/user.service';
 import UserRepository from '../repositories/user.repository';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { ValidationPipe } from '@nestjs/common';
 
 describe('UserController', () => {
   let userController;

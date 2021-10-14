@@ -1,4 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
+import HttpError from 'src/system/errors/HttpError';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import UserRepository from '../repositories/user.repository';
@@ -18,7 +19,10 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    return this.repository.findOne(id);
+    const user = await this.repository.findOne(id);
+    if (!user) throw new HttpError(404, 'User not found');
+
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -29,6 +33,9 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return this.repository.delete(id);
+    const response = await this.repository.delete(id);
+    if (!response.affected) throw new HttpError(404, 'User not found');
+
+    return response;
   }
 }

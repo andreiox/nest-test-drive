@@ -1,27 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsEmail, IsString, IsNumber } from 'class-validator';
 
-export class CreateUserDto {
+export class UserDto {
+  @ApiProperty({
+    description: 'User id',
+    example: '3f620513-42bd-4670-a731-e80c939ed9e4',
+  })
+  @IsString()
+  readonly id: string;
+
   @ApiProperty({
     description: 'User first name',
     example: 'Andre',
   })
   @IsString()
-  firstName: string;
+  readonly firstName: string;
 
   @ApiProperty({
     description: 'User last name',
     example: 'Macedo',
   })
   @IsString()
-  lastName: string;
+  readonly lastName: string;
 
   @ApiProperty({
     description: 'User age',
     example: 25,
   })
   @IsNumber()
-  age: number;
+  readonly age: number;
 
   @ApiProperty({
     description: 'User email',
@@ -29,7 +36,7 @@ export class CreateUserDto {
   })
   @IsEmail()
   @IsOptional()
-  email?: string;
+  readonly email?: string;
 
   @ApiProperty({
     description: 'User phone',
@@ -37,5 +44,19 @@ export class CreateUserDto {
   })
   @IsString()
   @IsOptional()
-  phone?: string;
+  readonly phone?: string;
+
+  @ApiProperty({
+    description: 'User creation date',
+    example: '2021-10-14T01:43:00.658Z',
+  })
+  @IsString()
+  readonly created_at: Date;
+
+  @ApiProperty({
+    description: 'User update date',
+    example: '2021-10-14T01:43:00.658Z',
+  })
+  @IsString()
+  readonly updated_at: Date;
 }

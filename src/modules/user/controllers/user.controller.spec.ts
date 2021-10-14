@@ -1,20 +1,44 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from '../services/user.service';
+import UserRepository from '../repositories/user.repository';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { ValidationPipe } from '@nestjs/common';
 
 describe('UserController', () => {
-  let controller: UserController;
+  let userController;
+  let userService;
+  let userRepository;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService],
+      providers: [
+        UserService,
+        {
+          provide: getRepositoryToken(UserRepository),
+          useValue: {
+            find: jest.fn(),
+            findAll: jest.fn(),
+            delete: jest.fn(),
+            save: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    const app = moduleRef.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
+    await app.init();
+
+    userService = moduleRef.get<UserService>(UserService);
+    userController = moduleRef.get<UserController>(UserController);
+    userRepository = await moduleRef.resolve<UserRepository>(
+      getRepositoryToken(UserRepository),
+    );
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(userController).toBeDefined();
   });
 });

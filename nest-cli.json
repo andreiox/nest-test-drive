@@ -1,4 +1,15 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "src",
+  "plugins": [
+      {
+          "name": "@nestjs/swagger",
+          "options": {
+              "classValidatorShim": false,
+              "introspectComments": true,
+              "dtoFileNameSuffix": [".model.ts", ".dto.ts"],
+              "controllerFileNameSuffix": [".controller.ts"]
+          }
+      }
+  ]
 }

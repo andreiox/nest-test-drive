@@ -23,7 +23,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { GetUsersDto } from '../dto/get-users.dto';
 import { UserDto } from '../dto/user.dto';
-import { BadRequestSchema } from 'src/system/constants/schemas';
+import { BadRequestSchema } from '../../../system/constants/schemas';
 
 @Controller('user')
 @ApiTags('User')

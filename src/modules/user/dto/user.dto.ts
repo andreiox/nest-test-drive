@@ -7,28 +7,28 @@ export class UserDto {
     example: '3f620513-42bd-4670-a731-e80c939ed9e4',
   })
   @IsString()
-  readonly id: string;
+  id: string;
 
   @ApiProperty({
     description: 'User first name',
     example: 'Andre',
   })
   @IsString()
-  readonly firstName: string;
+  firstName: string;
 
   @ApiProperty({
     description: 'User last name',
     example: 'Macedo',
   })
   @IsString()
-  readonly lastName: string;
+  lastName: string;
 
   @ApiProperty({
     description: 'User age',
     example: 25,
   })
   @IsNumber()
-  readonly age: number;
+  age: number;
 
   @ApiProperty({
     description: 'User email',
@@ -36,7 +36,7 @@ export class UserDto {
   })
   @IsEmail()
   @IsOptional()
-  readonly email?: string;
+  email?: string;
 
   @ApiProperty({
     description: 'User phone',
@@ -44,19 +44,19 @@ export class UserDto {
   })
   @IsString()
   @IsOptional()
-  readonly phone?: string;
+  phone?: string;
 
   @ApiProperty({
     description: 'User creation date',
     example: '2021-10-14T01:43:00.658Z',
   })
   @IsString()
-  readonly created_at: Date;
+  created_at: Date;
 
   @ApiProperty({
     description: 'User update date',
     example: '2021-10-14T01:43:00.658Z',
   })
   @IsString()
-  readonly updated_at: Date;
+  updated_at: Date;
 }

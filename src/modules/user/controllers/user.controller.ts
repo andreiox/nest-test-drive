@@ -56,21 +56,45 @@ export class UserController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all Users' })
+  @ApiResponse({
+    status: 201,
+    description: 'List of users',
+    type: UserDto,
+    isArray: true,
+  })
   async findAll(@Query() params: GetUsersDto) {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get an User' })
+  @ApiResponse({
+    status: 200,
+    description: 'User with said id',
+    type: UserDto,
+  })
   async findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update an User' })
+  @ApiResponse({
+    status: 200,
+    description: 'User updated',
+    type: UserDto,
+  })
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete an User' })
+  @ApiResponse({
+    status: 204,
+    description: 'User deleted',
+  })
   async remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }

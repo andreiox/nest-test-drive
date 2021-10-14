@@ -12,7 +12,6 @@ import {
 import {
   ApiTags,
   ApiHeader,
-  ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiOperation,
   ApiResponse,
@@ -23,7 +22,7 @@ import { CreateUserDto } from '../dto/request/create-user.dto';
 import { UpdateUserDto } from '../dto/request/update-user.dto';
 import { GetUsersDto } from '../dto/request/get-users.dto';
 import { UserDto } from '../dto/response/user.dto';
-import { BadRequestSchema } from '../../../system/constants/schemas';
+import { CustomApiBadRequestResponse } from '../../../system/decorators/swagger/apibadrequest.decorator';
 
 @Controller('user')
 @ApiTags('User')
@@ -31,10 +30,7 @@ import { BadRequestSchema } from '../../../system/constants/schemas';
   name: 'client_id',
   required: true,
 })
-@ApiBadRequestResponse({
-  description: 'Bad Request',
-  schema: BadRequestSchema,
-})
+@CustomApiBadRequestResponse()
 @ApiInternalServerErrorResponse({
   description: 'Sorry we are experiencing technical problems',
 })

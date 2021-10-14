@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import UserRepository from './repositories/user.repository';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import UserRepository from '../repositories/user.repository';
 
 export class UserService {
   constructor(

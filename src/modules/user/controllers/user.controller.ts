@@ -9,11 +9,11 @@ import {
   Query,
   Put,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from '../services/user.service';
 
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { GetUsersDto } from './dto/get-users.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { GetUsersDto } from '../dto/get-users.dto';
 
 @Controller('user')
 export class UserController {

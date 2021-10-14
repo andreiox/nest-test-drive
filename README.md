@@ -16,6 +16,7 @@ Requirements
 -	[x] typeorm
 -	[ ] tests
 -	[x] documentation
+-   [ ] wrap all responses with { data: [...] }
 
 References
 ----------

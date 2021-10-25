@@ -21,6 +21,7 @@ describe('UserController', () => {
             create: jest.fn(),
             findAll: jest.fn(),
             findOne: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -90,6 +91,44 @@ describe('UserController', () => {
 
       expect(service.findOne).toHaveBeenCalledTimes(1);
       expect(service.findOne).toHaveBeenCalledWith('1123');
+    });
+  });
+
+  describe('update', () => {
+    it('should pass the update validation and call the service', async () => {
+      const user = {
+        firstName: 'Andre',
+        lastName: 'Macedo',
+        age: 25,
+      };
+
+      await request(app.getHttpServer())
+        .put('/user/1123')
+        .send(user)
+        .expect(200);
+
+      expect(service.update).toHaveBeenCalledTimes(1);
+      expect(service.update).toHaveBeenCalledWith('1123', user);
+    });
+
+    it('should throw bad request for invalid age', async () => {
+      await request(app.getHttpServer())
+        .put('/user/1123')
+        .send({
+          firstName: 'Andre',
+          lastName: 'Macedo',
+          age: 'hello world',
+        })
+        .expect(400)
+        .expect({
+          statusCode: 400,
+          error: 'Bad Request',
+          message: [
+            'age must be a number conforming to the specified constraints',
+          ],
+        });
+
+      expect(service.update).toHaveBeenCalledTimes(0);
     });
   });
 });

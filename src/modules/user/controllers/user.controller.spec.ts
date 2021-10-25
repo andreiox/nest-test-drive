@@ -19,6 +19,8 @@ describe('UserController', () => {
           provide: UserService,
           useValue: {
             create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
           },
         },
       ],
@@ -70,6 +72,24 @@ describe('UserController', () => {
         });
 
       expect(service.create).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('findAll', () => {
+    it('should call the service', async () => {
+      await request(app.getHttpServer()).get('/user').expect(200);
+
+      expect(service.findAll).toHaveBeenCalledTimes(1);
+      expect(service.findAll).toHaveBeenCalledWith();
+    });
+  });
+
+  describe('findOne', () => {
+    it('should call the service', async () => {
+      await request(app.getHttpServer()).get('/user/1123').expect(200);
+
+      expect(service.findOne).toHaveBeenCalledTimes(1);
+      expect(service.findOne).toHaveBeenCalledWith('1123');
     });
   });
 });

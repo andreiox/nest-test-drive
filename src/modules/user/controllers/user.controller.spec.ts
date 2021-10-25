@@ -1,45 +1,75 @@
+import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { ValidationPipe } from '@nestjs/common';
 
 import { UserController } from './user.controller';
 import { UserService } from '../services/user.service';
-import UserRepository from '../repositories/user.repository';
 
 describe('UserController', () => {
-  let userController;
-  let userService;
-  let userRepository;
+  let app;
+
+  let controller: UserController;
+  let service: UserService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
-        UserService,
         {
-          provide: getRepositoryToken(UserRepository),
+          provide: UserService,
           useValue: {
-            find: jest.fn(),
-            findAll: jest.fn(),
-            delete: jest.fn(),
-            save: jest.fn(),
+            create: jest.fn(),
           },
         },
       ],
     }).compile();
 
-    const app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
 
-    userService = moduleRef.get<UserService>(UserService);
-    userController = moduleRef.get<UserController>(UserController);
-    userRepository = await moduleRef.resolve<UserRepository>(
-      getRepositoryToken(UserRepository),
-    );
+    controller = moduleRef.get<UserController>(UserController);
+    service = moduleRef.get<UserService>(UserService);
+  });
+
+  afterAll(async () => {
+    app.close();
   });
 
   it('should be defined', () => {
-    expect(userController).toBeDefined();
+    expect(controller).toBeDefined();
+  });
+
+  describe('create', () => {
+    it('should pass the create validation and call the service', async () => {
+      const user = {
+        firstName: 'Andre',
+        lastName: 'Macedo',
+        age: 25,
+      };
+
+      await request(app.getHttpServer()).post('/user').send(user).expect(201);
+
+      expect(service.create).toHaveBeenCalledTimes(1);
+      expect(service.create).toHaveBeenCalledWith(user);
+    });
+
+    it('should throw bad request for empty body', async () => {
+      await request(app.getHttpServer())
+        .post('/user')
+        .send({})
+        .expect(400)
+        .expect({
+          statusCode: 400,
+          error: 'Bad Request',
+          message: [
+            'firstName must be a string',
+            'lastName must be a string',
+            'age must be a number conforming to the specified constraints',
+          ],
+        });
+
+      expect(service.create).toHaveBeenCalledTimes(0);
+    });
   });
 });

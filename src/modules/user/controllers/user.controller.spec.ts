@@ -17,13 +17,7 @@ describe('UserController', () => {
       providers: [
         {
           provide: UserService,
-          useValue: {
-            create: jest.fn(),
-            findAll: jest.fn(),
-            findOne: jest.fn(),
-            update: jest.fn(),
-            remove: jest.fn(),
-          },
+          useValue: {},
         },
       ],
     }).compile();
@@ -46,6 +40,8 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should pass the create validation and call the service', async () => {
+      service.create = jest.fn();
+
       const user = {
         firstName: 'Andre',
         lastName: 'Macedo',
@@ -59,6 +55,8 @@ describe('UserController', () => {
     });
 
     it('should throw bad request for empty body', async () => {
+      service.create = jest.fn();
+
       await request(app.getHttpServer())
         .post('/user')
         .send({})
@@ -79,6 +77,8 @@ describe('UserController', () => {
 
   describe('findAll', () => {
     it('should call the service', async () => {
+      service.findAll = jest.fn();
+
       await request(app.getHttpServer()).get('/user').expect(200);
 
       expect(service.findAll).toHaveBeenCalledTimes(1);
@@ -88,6 +88,8 @@ describe('UserController', () => {
 
   describe('findOne', () => {
     it('should call the service', async () => {
+      service.findOne = jest.fn();
+
       await request(app.getHttpServer()).get('/user/1123').expect(200);
 
       expect(service.findOne).toHaveBeenCalledTimes(1);
@@ -97,6 +99,8 @@ describe('UserController', () => {
 
   describe('update', () => {
     it('should pass the update validation and call the service', async () => {
+      service.update = jest.fn();
+
       const user = {
         firstName: 'Andre',
         lastName: 'Macedo',
@@ -113,6 +117,8 @@ describe('UserController', () => {
     });
 
     it('should throw bad request for invalid age', async () => {
+      service.update = jest.fn();
+
       await request(app.getHttpServer())
         .put('/user/1123')
         .send({
@@ -135,6 +141,8 @@ describe('UserController', () => {
 
   describe('delete', () => {
     it('should call the service', async () => {
+      service.remove = jest.fn();
+
       await request(app.getHttpServer()).delete('/user/1123').expect(204);
 
       expect(service.remove).toHaveBeenCalledTimes(1);

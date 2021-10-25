@@ -11,8 +11,6 @@ export class UserService {
     private readonly repository: UserRepository,
   ) {}
 
-  helloworld = 'aaa';
-
   async create(createUserDto: CreateUserDto) {
     return this.repository.save(createUserDto);
   }

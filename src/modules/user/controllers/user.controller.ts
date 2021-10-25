@@ -8,6 +8,7 @@ import {
   Headers,
   Query,
   Put,
+  HttpCode,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -86,6 +87,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   @ApiOperation({ summary: 'Delete an User' })
   @ApiResponse({
     status: 204,

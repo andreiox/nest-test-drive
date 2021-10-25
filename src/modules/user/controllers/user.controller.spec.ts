@@ -22,6 +22,7 @@ describe('UserController', () => {
             findAll: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
+            remove: jest.fn(),
           },
         },
       ],
@@ -129,6 +130,15 @@ describe('UserController', () => {
         });
 
       expect(service.update).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('delete', () => {
+    it('should call the service', async () => {
+      await request(app.getHttpServer()).delete('/user/1123').expect(204);
+
+      expect(service.remove).toHaveBeenCalledTimes(1);
+      expect(service.remove).toHaveBeenCalledWith('1123');
     });
   });
 });
